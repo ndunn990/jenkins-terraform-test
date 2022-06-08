@@ -1,10 +1,19 @@
 pipeline {
     agent any
+    tools {
+        terraform 'terraform-1.2.2'
+    }
     stages {
-        stage('Test') {
+        stage('Terraform Init') {
            steps{
-                echo 'Hello world!'
+                sh 'cd ../terraform && terraform init'
            }
+        }
+        stage('Terraform Validate') {
+            steps{
+                sh 'cd ../terraform && terraform validate'
+            }
+
         }
     }
 }
