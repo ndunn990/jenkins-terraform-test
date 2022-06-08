@@ -1,24 +1,24 @@
 pipeline {
-    agent any
-    tools {
-        terraform 'terraform'
+  agent {
+    docker {
+      image 'hashicorp/terraform:light'
+      args '--entrypoint='
     }
-    stages {
-        stage('Change Dir') {
-           steps{
-               sh 'cd terraform/'
-           }
+  }
+  stages {
+        stage('Change Directory') {
+            sh 'cd terraform/'
         }
         stage('Terraform Init') {
-           steps{
-                sh 'terraform init'
-           }
-        }
-        stage('Terraform Validate') {
-            steps{
-                sh 'terraform validate'
+            steps {
+                sh 'terraform init -no-color'
             }
-
         }
-    }
+        // Optional wait for approval
+        //input 'Approve Plan?'
+
+        stage ('Terraform Validate') {
+            sh "terraform validate -no-color"
+        }
+  }
 }
