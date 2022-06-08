@@ -4,6 +4,11 @@ pipeline {
         terraform 'terraform'
     }
     stages {
+        stage('Change Dir') {
+           steps{
+               sh 'cd terraform/'
+           }
+        }
         stage('Terraform Init') {
            steps{
                 sh 'cd ../terraform && terraform init'
