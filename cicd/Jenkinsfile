@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    tools {
+       terraform 'terraform'
+    }
+    stages {
+        stage('Test') {
+           steps{
+                echo 'Hello world!'
+           }
+        }
+    }
+}
